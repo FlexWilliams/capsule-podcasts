@@ -1,0 +1,10 @@
+version: "3"
+
+services: 
+    capsule-api:
+        build:
+            context: .
+            dockerfile: dev.Dockerfile
+        image: capulse-api:dev
+        ports:
+            - "49152:8080"

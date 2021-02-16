@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service
 class PodcastService {
  
     fun get(): String {
-        return "hello service"
+        return "hello bby <3"
     }
 }
