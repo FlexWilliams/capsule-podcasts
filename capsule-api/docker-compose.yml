@@ -1,6 +1,12 @@
 version: "3"
 
-services: 
+services:
+    capsule-api-db:
+        image: mongo
+        ports:
+            - "27017:27017"
+        networks:
+            - capsule-api-network
     capsule-api:
         build:
             context: .
@@ -8,3 +14,9 @@ services:
         image: capulse-api:dev
         ports:
             - "49152:8080"
+        depends_on:
+            - capsule-api-db
+        networks:
+            - capsule-api-network
+networks:
+    capsule-api-network:
