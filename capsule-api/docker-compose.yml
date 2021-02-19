@@ -18,5 +18,7 @@ services:
             - capsule-api-db
         networks:
             - capsule-api-network
+        environment:
+            - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
 networks:
     capsule-api-network:
