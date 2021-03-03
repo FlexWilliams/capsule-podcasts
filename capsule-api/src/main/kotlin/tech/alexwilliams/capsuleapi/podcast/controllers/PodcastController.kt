@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import tech.alexwilliams.capsuleapi.podcast.models.Podcast
+import tech.alexwilliams.capsuleapi.podcast.models.PodcastEpisode
 
 import tech.alexwilliams.capsuleapi.podcast.services.PodcastService
 
@@ -29,5 +30,10 @@ class PodcastController(val podcastService: PodcastService) {
   @ResponseStatus(HttpStatus.CREATED)
   fun savePodcast(@RequestBody podcast: Podcast): Mono<Podcast> {
     return podcastService.savePodcast(podcast)
+  }
+
+  @PostMapping("/add-rss")
+  fun addPodcastRss(@RequestBody rssUrl: String): Mono<List<PodcastEpisode>> {
+    return podcastService.loadPodcastRssFeed(rssUrl)
   }
 }
