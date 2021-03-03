@@ -4,10 +4,12 @@ import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import tech.alexwilliams.capsuleapi.podcast.models.Podcast
+import tech.alexwilliams.capsuleapi.podcast.models.PodcastEpisode
 import tech.alexwilliams.capsuleapi.podcast.repositories.PodcastRepository
 
 @Service
-class PodcastService(val podcastRepository: PodcastRepository) {
+class PodcastService(val podcastRepository: PodcastRepository,
+                     val rssService: RssService) {
 
     fun getAll(): Flux<Podcast> {
         return podcastRepository.findAll()
@@ -19,5 +21,14 @@ class PodcastService(val podcastRepository: PodcastRepository) {
 
     fun savePodcast(podcast: Podcast): Mono<Podcast> {
         return podcastRepository.save(podcast)
+    }
+
+    fun loadPodcastRssFeed(rssUrl: String): Mono<List<PodcastEpisode>> {
+        val podcastRssFeed = this.rssService.fetchRssFeed(rssUrl)
+        val podcastEpisodes = listOf(
+            PodcastEpisode("12345", "This Is Important", "In this episode we discuss whats really important")
+        )
+
+        return Mono.just(podcastEpisodes)
     }
 }
