@@ -24,11 +24,16 @@ class PodcastService(val podcastRepository: PodcastRepository,
     }
 
     fun loadPodcastRssFeed(rssUrl: String): Mono<List<PodcastEpisode>> {
-        val podcastRssFeed = this.rssService.fetchRssFeed(rssUrl)
-        val podcastEpisodes = listOf(
-            PodcastEpisode("12345", "This Is Important", "In this episode we discuss whats really important")
-        )
-
-        return Mono.just(podcastEpisodes)
+        rssService.deserializePodcastRssFeed("")
+        return Mono.just(emptyList())
+//        return this.rssService.fetchRssFeed(rssUrl).map { rss ->
+//            val podcastRssFeed = rssService.deserializePodcastRssFeed(rss)
+//
+//            val podcastEpisodes = listOf(
+//                PodcastEpisode("12345", podcastRssFeed.channel?.title, "In this episode we discuss whats really important")
+//            )
+//
+//            podcastEpisodes
+//        }
     }
 }
