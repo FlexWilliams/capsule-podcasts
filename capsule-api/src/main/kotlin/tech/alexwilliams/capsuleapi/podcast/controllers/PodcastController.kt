@@ -7,6 +7,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import tech.alexwilliams.capsuleapi.podcast.models.Podcast
 import tech.alexwilliams.capsuleapi.podcast.models.PodcastEpisode
+import tech.alexwilliams.capsuleapi.podcast.models.PodcastRssFeed
 
 import tech.alexwilliams.capsuleapi.podcast.services.PodcastService
 
@@ -33,7 +34,7 @@ class PodcastController(val podcastService: PodcastService) {
   }
 
   @PostMapping("/add-rss")
-  fun addPodcastRss(@RequestBody rssUrl: String): Mono<List<PodcastEpisode>> {
+  fun addPodcastRss(@RequestBody rssUrl: String): Mono<PodcastRssFeed> {
     return podcastService.loadPodcastRssFeed(rssUrl)
   }
 }

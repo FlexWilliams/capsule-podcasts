@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import tech.alexwilliams.capsuleapi.podcast.models.Podcast
-import tech.alexwilliams.capsuleapi.podcast.models.PodcastEpisode
+import tech.alexwilliams.capsuleapi.podcast.models.PodcastRssFeed
 import tech.alexwilliams.capsuleapi.podcast.repositories.PodcastRepository
 
 @Service
@@ -23,17 +23,9 @@ class PodcastService(val podcastRepository: PodcastRepository,
         return podcastRepository.save(podcast)
     }
 
-    fun loadPodcastRssFeed(rssUrl: String): Mono<List<PodcastEpisode>> {
-        rssService.deserializePodcastRssFeed("")
-        return Mono.just(emptyList())
-//        return this.rssService.fetchRssFeed(rssUrl).map { rss ->
-//            val podcastRssFeed = rssService.deserializePodcastRssFeed(rss)
-//
-//            val podcastEpisodes = listOf(
-//                PodcastEpisode("12345", podcastRssFeed.channel?.title, "In this episode we discuss whats really important")
-//            )
-//
-//            podcastEpisodes
-//        }
+    fun loadPodcastRssFeed(rssUrl: String): Mono<PodcastRssFeed> {
+        return this.rssService.fetchRssFeed(rssUrl).map { rss ->
+            rssService.deserializePodcastRssFeed(rss)
+        }
     }
 }

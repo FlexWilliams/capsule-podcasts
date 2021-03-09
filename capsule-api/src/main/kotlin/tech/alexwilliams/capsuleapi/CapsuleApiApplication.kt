@@ -9,6 +9,5 @@ class CapsuleApiApplication
 
 fun main(args: Array<String>) {
 	runApplication<CapsuleApiApplication>(*args) {
-		val x = this.run().getBean(RssService::class.java).deserializePodcastRssFeed("")
 	}
 }
