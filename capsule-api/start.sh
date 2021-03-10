@@ -1,5 +1,5 @@
 #!/bin/bash
 
-gradle build && \
-docker-compose build && \
+gradle clean build && \
+docker-compose build --no-cache && \
 docker-compose --env-file .env.docker up -d

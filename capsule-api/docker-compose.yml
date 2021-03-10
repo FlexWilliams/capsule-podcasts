@@ -7,6 +7,8 @@ services:
             - "27017:27017"
         networks:
             - capsule-api-network
+        volumes:
+            - ~/dev/storage/capsule-podcasts:/data/db
     capsule-api:
         build:
             context: .
